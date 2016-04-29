@@ -6,6 +6,8 @@ package com.company;
 public class Node {
     Node next;
     int data ;
+    Node scr;
+    Node dest;
 
     public Node getNext() {
         return next;
