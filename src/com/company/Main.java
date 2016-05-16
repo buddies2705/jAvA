@@ -1,5 +1,9 @@
 package com.company;
 
+import com.sun.javafx.geom.Point2D;
+import com.sun.org.apache.xpath.internal.operations.Bool;
+import sun.reflect.generics.tree.Tree;
+
 import java.lang.reflect.Array;
 import java.util.*;
 
@@ -7,18 +11,201 @@ public abstract class Main implements Cloneable {
 
 
     public static void main(String[] args) throws InterruptedException {
+        int [][] arr = {{1, 2, 3} ,{4, 8, 2},{1, 5, 3}};
+ArrayList<Integer> a = new ArrayList<>();
+ArrayList<Integer> b = new ArrayList<>();
+  
+
+        //4, 8, -7, -5, -13, 9, -7, 8
+        //4, -15, -10, -3, -13, 12, 8, -8
+        a.add(1);
+        a.add(2);
+        a.add(3);
+        a.add(4);
+        a.add(5);
+
+//        a.add(4);
+//        a.add(5);
+//        a.add(6);
+        System.out.println(firstMissingPositive(a));
+//        a.add(8);b.add(-15);
+//        a.add(-7);b.add(-10);
+//        a.add(-5);b.add(-3);
+//        a.add(-13);b.add(-13);
+//        a.add(9);b.add(12);
+//        a.add(-7);b.add(8);
+//        a.add(8);b.add(-8);
+       Scanner sc = new Scanner(System.in);
+
+//        Trie trie = new Trie();
+//        trie.insert("gaurav");
+//        trie.insert("gaut");
+//        System.out.println(trie.search(null));
+//        System.out.println(trie.search("gaut"));
+//        System.out.println(trie.search("gaur"));
+//        System.out.println(trie.search("q"));
+//        System.out.println(trie.search(null));
+
+//        System.out.println(trie.root);
+
+//        System.out.println(EqualHackerRank.equal(arr , arr.length-1 ,0));
+
+//        redJohn(7);
+//        TheMaximumSubarrayHackerrank.sumDP(arr);
+//        AbstractImplementor ab = new AbstractImplementor(2);
+//        ab.test();
+//        HashMap.SimpleEntry c = new HashMap.SimpleEntry<String , String >("x" , "y");
 
 
-        BinaryTree binaryTree = new BinaryTree();
-        binaryTree.root=  binaryTree.insert(25);
-        binaryTree.root = binaryTree.insert(8);
-        binaryTree.root =binaryTree.insert(120);
-        binaryTree.root =binaryTree.insert(80);
-        binaryTree.root =binaryTree.insert(90);
-        binaryTree.root =binaryTree.insert(110);
-        int [] arr = {5 , 1 , 3 , 4 , 7};
-        tripplets(arr,12);
 
+//        testt("aab" , "aac");
+
+//        System.out.println(LongestCommonSubSequence.lcs("HARRY","SALLY"));
+//        countFrequency("aaaaabccigicgjihidfiejfijgidgbhhehgfhjgiibggjddjjd");
+//        BinaryTree binaryTree = new BinaryTree();
+//        binaryTree.root = binaryTree.insert(binaryTree.root , 12);
+//        binaryTree.root = binaryTree.insert(binaryTree.root , 3);
+//        binaryTree.root = binaryTree.insert(binaryTree.root , 11);
+//        binaryTree.root = binaryTree.insert(binaryTree.root , 2);
+//        binaryTree.root = binaryTree.insert(binaryTree.root , 7);
+//        binaryTree.root = binaryTree.insert(binaryTree.root , 13);
+//        binaryTree.everyNodeIsSumOfItsGreaterNodeInBST();
+//        func(new StringBuffer("ABCD"),1, 4);
+
+//        int [][] realGrid = {{1,2,3},{4,5,6},{7,8,9}};
+//        int [][] myGrid ={{4,5},{7,8}};
+//        ReverseShuffleMerge.RSM("djjcddjggbiigjhfghehhbgdigjicafgjcehhfgifadihiajgciagicdahcbajjbhifjiaajigdgdfhdiijjgaiejgegbbiigida");
+//                               //aaaaaabaaceededecbdb
+//        convertToIntArray("123");
+//        System.out.println(TheGridSearch.checkForGrid(realGrid , myGrid , 3,3,2,2));
+//        String [][] strings ={{"you", "we"},
+//                {"have", "are"},
+//                {"sleep", "eat", "drink"}};
+//        ArrayFunctions.printAllTheSentences(strings , "" , 0 , 3 ,3);
+
+//       binaryTree.root = binaryTree.binaryTreeFromPostorderTraversal(arr );
+//        System.out.println(binaryTree.root);
+
+    }
+
+
+    public static int firstMissingPositive(ArrayList<Integer> a) {
+
+        int max = 20000;
+        int largest = Integer.MIN_VALUE;
+        for(int i =0 ; i < a.size() ; i++)
+        {
+            if(a.get(i) > largest)
+                largest = a.get(i);
+            if(a.get(i) > max)
+                a.set(i,a.get(i)-max);
+            if( a.get(i) > 0 && a.get(i) <= a.size() &&  a.get(i)-1>=0 && a.get(i)-1 < a.size())
+                a.set(a.get(i)-1 ,max+a.get(a.get(i)-1));
+
+        }
+        for(int i = 0 ; i< a.size() ; i++)
+        {
+            if(  a.get(i) < max) {
+                if (a.get(i)==i+1)
+                    return i+1;
+                return i + 1;
+            }
+        }
+        return largest+1;
+    }
+    public static ArrayList<Integer> maxset(ArrayList<Integer> a) {
+
+        long max_now = 0 ;
+        int start =0 ;
+        int end =0;
+        int resultStart =0;
+        long current_max = 0;
+        for (int i =0; i<a.size() ; i++)
+        {
+            if (a.get(i) < 0)
+                continue;
+            start =i;
+            current_max =0 ;
+            while(i < a.size() && a.get(i)>=0  )
+            {
+                current_max +=a.get(i);
+                i++;
+            }
+            if( current_max == max_now)
+            {
+                if((end - resultStart ) <=  (i-1 - start))
+                {
+                    resultStart = start ;
+                    end =i-1;
+                }
+            }
+            if (current_max > max_now){
+                resultStart =start;
+                end =i-1;
+                max_now =current_max;
+
+            }
+
+        }
+        ArrayList<Integer> b = new ArrayList<>();
+        for(int x= resultStart ; x <=end ; x++)
+            b.add(a.get(x));
+        int i =0;
+        while (i < b.size() && b.get(i)  < 0){
+            b.remove(i); i++;}
+        return b;
+    }
+
+
+
+
+    public  void testt(String s1 , String s2)
+    {
+        TreeSet<StringBuffer> union = new TreeSet<>(new SbufferComparator());
+        union.addAll(FindStringsIncludePowerSet.powerSet(s1));
+        union.addAll(FindStringsIncludePowerSet.powerSet(s2));
+        StringBuffer ss =new ArrayList<>(union).get(1);
+        System.out.println();
+
+    }
+
+
+
+    public static void test()
+    {
+        Scanner in = new Scanner(System.in);
+        int t = in.nextInt();
+        for(int a0 = 0; a0 < t; a0++){
+            int R = in.nextInt();
+            int C = in.nextInt();
+            String G[] = new String[R];
+            for(int G_i=0; G_i < R; G_i++){
+                G[G_i] = in.next();
+            }
+            int r = in.nextInt();
+            int c = in.nextInt();
+            String P[] = new String[r];
+            for(int P_i=0; P_i < r; P_i++){
+                P[P_i] = in.next();
+            }
+            int [][] realGrid = new int [R][C];
+            for(int i = 0; i < R ; i ++)
+                realGrid[i] = convertToIntArray(G[i]);
+            int [][] myGrid = new int [r][c];
+            for(int i = 0 ; i < r ; i++)
+                myGrid[i] = convertToIntArray(P[i]);
+
+            System.out.println(TheGridSearch.checkForGrid(realGrid ,myGrid , R ,C , r, c));
+        }
+    }
+    public static int[] convertToIntArray(String numbers)
+    {
+        String[] parts = numbers.split("");
+        int[] n1 = new int[parts.length];
+        for(int n = 0; n < parts.length; n++) {
+            n1[n] = Integer.parseInt(parts[n]);
+        }
+        return n1;
     }
 
     public static int longestPalandrom(String string) {
@@ -208,6 +395,8 @@ public abstract class Main implements Cloneable {
         }
         for (int i =0 ; i < n ; i++){
             {
+                System.out.println( " i == " + i);
+                System.out.println("prefix  == " + prefix + "  str == "+str );
                 allPermutation(prefix + str.charAt(i), str.substring(0, i) + str.substring(i+1, n));
 
             }
@@ -925,4 +1114,201 @@ public abstract class Main implements Cloneable {
         }
     }
 
+
+    public static String decode(String string){
+        String result="";
+        char[] s = string.toCharArray();
+        Stack<Integer> stack = new Stack<>();
+        int i=0,n=1;
+        while(i<s.length){
+            switch(s[i]){
+                case 'I':
+                    result=result+n;
+                    while(!stack.isEmpty()){
+                        result=result+stack.pop();
+                    }
+                    n++;i++;
+                    break;
+                case 'D':
+                    stack.push(n);
+                    n++;
+                    i++;
+                    break;
+            }
+        }
+        result=result+n;
+        while(!stack.isEmpty()){
+            result= result+stack.pop();
+        }
+        System.out.println(result);
+        return result;
+    }
+/*
+*
+* Input: arr1[] = {0, 1, 0, 0, 0, 0};
+       arr2[] =   {1, 0, 1, 0, 0, 1};
+Output: 4
+The longest span with same sum is from index 1 to 4.
+* */
+
+//            int [] arr ={3, 34, 4, 12, 5, 2};
+
+    public static void subsetSumProblem(int [] arr1 ,int size , int sum)
+    {
+        int res = 0 ;
+        int i = 0;
+        while (i < size)
+        {
+            res = arr1[i];
+            System.out.println("adding " + arr1[i]);
+            for (int j = 0 ; j < size ; j ++){
+                if (res > sum)
+                    break;
+                if (i == j)
+                    continue;
+                if (res + arr1[j] > sum)
+                    continue;
+                if (res + arr1[j] < sum) {
+                    res += arr1[j];
+                    System.out.println("adding " + arr1[j]);
+                }
+                if (res == sum){
+                    System.out.println("succues and res == " +sum);
+                    break;
+                }
+
+            }
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            i++;
+        }
+
+    }
+
+    public static void palandrom(String prefix , String str)
+    {
+        int n = str.length();
+        if (n == 0)
+        {
+            if(isPalandrom(prefix , 0 , n))
+                System.out.println(prefix);
+        }
+        for(int i =0 ; i<str.length() ;i++)
+        {
+            palandrom(prefix+str.charAt(i)+str.substring(0,i) , str.substring(i+1,n) );
+        }
+    }
+
+
+//    nitin
+//    n i t i n
+//    n iti n
+//    nitin
+
+
+    static void func(StringBuffer s,int b,int e){
+        for(int i=b;i<e;i++){
+            s.insert(i," ");
+            System.out.println(s);
+            func(s,i+2,s.length());
+            s.delete(i,i+1);
+        }
+    }
+
+
+    static void printSentencesRecusively(ArrayList<String> s1
+            , ArrayList<String> s2 , ArrayList<String> s3
+    ,int i , int j , int k)
+    {
+        if (i >= s1.size() || j >= s2.size() || k >= s3.size())
+            return;
+
+         printSentencesRecusively(s1, s2, s3, i+1, j, k ) ;
+                 printSentencesRecusively(s1, s2, s3, i, j+1 , k );
+                 printSentencesRecusively(s1, s2, s3, i, j , k+1 );
+        System.out.println(s1.get(i) + " " + s2.get(j) + " " + s3.get(k));
+
+
+    }
+
+    public static void countFrequency(String s)
+    {
+        int [] arr = new int [26];
+        for (int i = 0 ; i< s.length() ;i ++)
+        {
+            arr[s.charAt(i)-97]++;
+        }
+        for(int i = 0; i< 26 ; i++)
+        {
+            System.out.println((char)(i+97) + " -- " + arr[i]);
+        }
+    }
+
+
+    int numberOfprimes(int n)
+    {
+        boolean [] prime= new boolean[n + 1];
+        int count =0;
+        for (int p=2; p*p<=n; p++)
+        {
+            if (prime[p])
+            {
+                for (int i=p*2; i<=n; i += p)
+                    prime[i] = false;
+            }
+        }
+
+        for (int p=2; p<=n; p++)
+            if (prime[p])
+                count++;
+        return count;
+    }
+
+    public static int redJohn(int n)
+    {
+        if(n<4)
+            return numberOfprimess(1);
+        int [] arr = new int[n+1];
+        arr[0]=arr[1]=arr[2]=arr[3]=1;
+        for(int i = 4 ; i <=n ; i++)
+            arr[i]=arr[i-1]+arr[i-4];
+        return numberOfprimess(arr[n]);
+
+    }
+
+     private static int numberOfprimess(int n)
+    {
+        boolean [] prime= new boolean[n + 1];
+        for (int i = 0;i<prime.length ;i++)
+            prime[i]=true;
+        int count =0;
+        for (int p=2; p*p<=n; p++)
+        {
+            if (prime[p])
+            {
+                for (int i=p*2; i<=n; i += p)
+                    prime[i] = false;
+            }
+        }
+
+        for (int p=2; p<=n; p++)
+            if (prime[p])
+                count++;
+        return count;
+    }
+
+    public static int minStepInMatrix(int [][] matrix , int i , int j )
+    {
+        if (i < 0 || j < 0   )
+        {
+            return Integer.MAX_VALUE;
+        }
+        else
+        if (i ==0 && j == 0)
+            return matrix[i][j];
+        else
+        return matrix[i][j] +Math.min(minStepInMatrix(matrix , i -1 , j ) , minStepInMatrix(matrix , i ,j-1));
+
+    }
 }

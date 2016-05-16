@@ -337,6 +337,76 @@ public class BinaryTree {
 
     }
 
+    public TreeNode  binaryTreeFromPostorderTraversal(int [] arr)
+    {
+        return binaryTreeFromPostorderTraversal( root,arr , arr.length-1 , Integer.MIN_VALUE ,Integer.MAX_VALUE , arr[arr.length-1]);
+    }
+
+    private TreeNode binaryTreeFromPostorderTraversal( TreeNode newNode ,int [] arr , int len , int min , int max , int key)
+    {
+        System.out.println(len + " " + min +  " " + max + " " + key ) ;
+        if (len < 0)
+            return null;
+        if (key > min  && key < max ) {
+            newNode = new TreeNode(key);
+            len--;
+
+            if (len >= 0) {
+                newNode.right = binaryTreeFromPostorderTraversal(newNode.right ,arr
+                        , len, key, max, arr[len]);
+                newNode.left = binaryTreeFromPostorderTraversal(newNode.left,arr
+                        , len, min, key, arr[len]);
+            }
+        }
+        return newNode;
+
+    }
+
+    public void printCommonNodesInTwoBST( TreeNode root1 , TreeNode root2)
+    {
+
+
+    }
+
+    public void IterativeInOrder(TreeNode root)
+    {
+        Stack<TreeNode> stack = new Stack<>();
+        stack.push(root);
+        while (!stack.isEmpty())
+        {
+            TreeNode x = stack.peek();
+            while (x!=null && x.left != null)
+            {
+                stack.push(x.left);
+                x= x.left;
+            }
+            while (!stack.isEmpty() && stack.peek() ==null)
+               stack.pop();
+            if (!stack.isEmpty()) {
+                TreeNode l = stack.pop();
+                System.out.println(l.data);
+                stack.push(l.right);
+            }
+
+        }
+    }
+
+    public void everyNodeIsSumOfItsGreaterNodeInBST()
+    {
+        everyNodeIsSumOfItsGreaterNodeInBST(root);
+        System.out.println();
+    }
+
+    private int everyNodeIsSumOfItsGreaterNodeInBST(TreeNode root) {
+        if (root==null)
+            return 0;
+        if (root.left == null && root.right == null)
+            return root.data;
+        everyNodeIsSumOfItsGreaterNodeInBST(root.right);
+        everyNodeIsSumOfItsGreaterNodeInBST(root.left);
+        return root.data;
+
+    }
 
 
 }

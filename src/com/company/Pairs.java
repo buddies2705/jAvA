@@ -7,11 +7,13 @@ public class Pairs {
 
     int key;
     int value;
+    static  int test;
 
     public Pairs(int key, int b) {
         this.key = key;
         this.value = b;
     }
+
 
     public int getKey() {
         return key;

@@ -3,7 +3,7 @@ package com.company;
 /**
  * Created by root on 23/4/16.
  */
-public class Chat {
+ class Chat {
 
     Boolean flag = false;
     public synchronized void question(String s1)
